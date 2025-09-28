@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>My Attendance App</title>
+    <!-- Cache-busting ke liye version number -->
+    <link rel="stylesheet" href="style.css?v=9">
+</head>
+<body>
+    <div class="app-container">
+        <!-- ### HOME SCREEN ### -->
+        <div id="home-screen" class="screen">
+            <header id="home-header">
+                <div id="welcome-message">
+                    <h1 id="greeting">Loading...</h1>
+                    <p id="user-name-display"></p>
+                </div>
+                <div class="header-end">
+                    <button id="logout-button" class="icon-button" title="Logout">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    </button>
+                </div>
+            </header>
+            <main>
+                <div id="dashboard-card" class="card">
+                    <div class="dashboard-item">
+                        <span class="dashboard-label">Overall Attendance</span>
+                        <div class="dashboard-chart-container">
+                            <canvas id="dashboard-overall-chart"></canvas>
+                            <div id="dashboard-percentage" class="chart-percentage">--%</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-item">
+                        <span class="dashboard-label">Subjects Tracked</span>
+                        <span id="dashboard-subjects-tracked" class="dashboard-value">--</span>
+                    </div>
+                </div>
+
+                <div class="card action-card">
+                    <button class="nav-button" data-target="add-update-screen">Update Attendance</button>
+                    <button class="nav-button" data-target="status-screen">Attendance Status</button>
+                    <!-- YAHAN NAYA BUTTON JODA GAYA HAI -->
+                    <button class="nav-button secondary" data-target="manage-subjects-screen">Manage Subjects</button>
+                </div>
+
+                <div class="card">
+                    <h2>Add New Subject</h2>
+                    <form id="add-subject-form">
+                        <input type="text" id="subject-name" placeholder="Subject Name (e.g., Physics)" required>
+                        <button type="submit">Add Subject</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+        <!-- ### ADD/UPDATE ATTENDANCE SCREEN ### -->
+        <div id="add-update-screen" class="screen hidden">
+            <header>
+                <div class="header-start">
+                    <button class="back-button icon-button" data-target="home-screen" title="Back">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </button>
+                </div>
+                <h1>Add Attendance</h1>
+                <div class="header-end"></div>
+            </header>
+            <main>
+                <div class="card">
+                    <form id="add-attendance-form">
+                        <label for="subject-dropdown">Subject</label>
+                        <select id="subject-dropdown" required></select>
+                        <label for="attendance-date">Date</label>
+                        <input type="date" id="attendance-date" required>
+                        <label for="start-time">Start Time</label>
+                        <input type="time" id="start-time" required>
+                        <label for="end-time">End Time</label>
+                        <input type="time" id="end-time" required>
+                        <label for="attendance-status">Status</label>
+                        <select id="attendance-status">
+                            <option value="Present">Present</option>
+                            <option value="Absent">Absent</option>
+                        </select>
+                        <button type="submit" class="primary-button">Add / Update</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+        
+        <!-- ### ATTENDANCE STATUS SCREEN ### -->
+        <div id="status-screen" class="screen hidden">
+            <header>
+                <div class="header-start">
+                     <button class="back-button icon-button" data-target="home-screen" title="Back">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </button>
+                </div>
+                <h1>Attendance Status</h1>
+                <div class="header-end"></div>
+            </header>
+            <main id="status-cards-container">
+                <!-- Status cards yahan JS se generate honge -->
+            </main>
+        </div>
+
+        <!-- ### MANAGE SUBJECTS SCREEN (NAYI SCREEN) ### -->
+        <div id="manage-subjects-screen" class="screen hidden">
+            <header>
+                <div class="header-start">
+                     <button class="back-button icon-button" data-target="home-screen" title="Back">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </button>
+                </div>
+                <h1>Manage Subjects</h1>
+                <div class="header-end"></div>
+            </header>
+            <main>
+                <div class="card">
+                    <p class="info-text">Yahan se aap galti se add hue subject ko delete kar sakte hain. Subject delete karne se uske saare attendance records bhi delete ho jayenge.</p>
+                    <ul id="manage-subjects-list">
+                        <!-- Subjects ki list yahan JS se aayegi -->
+                    </ul>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Your Scripts -->
+    <script src="main.js" type="module"></script>
+</body>
+</html>
+

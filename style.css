@@ -1,0 +1,173 @@
+/* --- CSS Variables for Dark Theme --- */
+:root {
+    --bg-dark: #121212;
+    --bg-surface: #1e1e1e;
+    --primary-accent: #3b82f6;
+    --primary-accent-hover: #2563eb;
+    --secondary-accent: #37373d; /* Naya color secondary button ke liye */
+    --secondary-accent-hover: #4a4a52;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --border-color: #333333;
+    --gradient-start: #4f80e1;
+    --gradient-end: #ae58d4;
+    --green: #22c55e;
+    --red: #ef4444;
+}
+
+/* --- Basic Setup --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-tap-highlight-color: transparent; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overscroll-behavior: none;
+    overflow-x: hidden;
+}
+.app-container {
+    width: 100%; max-width: 500px; margin: auto;
+    min-height: 100vh; display: flex; flex-direction: column;
+}
+
+/* --- Screen Management --- */
+.screen {
+    width: 100%; padding: 30px 15px; 
+    display: flex; flex-direction: column; flex-grow: 1;
+}
+.hidden { display: none !important; }
+
+/* --- HEADER --- */
+header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 30px; min-height: 44px;
+}
+#welcome-message { text-align: left; }
+#welcome-message h1 { font-size: 1.2em; font-weight: 500; color: var(--text-secondary); margin: 0; }
+#welcome-message p {
+    font-size: 1.8em; font-weight: 700; margin: 0;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; text-fill-color: transparent;
+}
+header h1:not(#greeting) {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    font-size: 1.5em; font-weight: 600;
+}
+.header-start { flex: 1; }
+.header-end { flex: 1; display: flex; justify-content: flex-end; }
+.icon-button {
+    background: none; border: none; color: var(--text-secondary); cursor: pointer;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    transition: background-color 0.2s, transform 0.2s; width: 44px; height: 44px; padding: 0;
+}
+.icon-button:hover { background-color: rgba(255, 255, 255, 0.1); transform: scale(1.1); }
+.icon-button svg { pointer-events: none; width: 28px; height: 28px; }
+
+/* --- Main Content & Cards --- */
+main { flex-grow: 1; }
+.card {
+    background: var(--bg-surface); padding: 25px;
+    border-radius: 16px; margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+/* --- DASHBOARD CARD --- */
+#dashboard-card {
+    display: flex; justify-content: space-around; align-items: center;
+    text-align: center; padding: 20px 15px;
+    border-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end)) 1;
+    border-width: 2px; border-style: solid;
+}
+.dashboard-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.dashboard-label { font-size: 0.9em; color: var(--text-secondary); }
+.dashboard-value { font-size: 2.2em; font-weight: 700; color: var(--text-primary); }
+.dashboard-chart-container { position: relative; width: 80px; height: 80px; }
+.dashboard-chart-container .chart-percentage { font-size: 1.3em; font-weight: 700; }
+
+/* --- Other Cards --- */
+.card h2 { margin-top: 0; margin-bottom: 20px; font-size: 1.2em; font-weight: 500; text-align: center; color: var(--text-primary); }
+.action-card { display: flex; flex-direction: column; gap: 15px; }
+form { display: flex; flex-direction: column; }
+.form-switcher { text-align: center; margin-top: 20px; }
+.form-switcher a { color: var(--primary-accent); text-decoration: none; font-weight: 500; }
+label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 0.9em; }
+input, select {
+    width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid var(--border-color);
+    border-radius: 8px; font-size: 1rem; background-color: var(--bg-dark); color: var(--text-primary);
+}
+input:focus, select:focus { outline: none; border-color: var(--primary-accent); }
+input[type="date"], input[type="time"] { color-scheme: dark; }
+button {
+    background-color: var(--primary-accent); color: white; border: none; cursor: pointer;
+    padding: 15px; border-radius: 8px; font-size: 1rem; font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+}
+button:hover { background-color: var(--primary-accent-hover); transform: translateY(-2px); }
+.nav-button { padding: 18px; font-size: 1.1em; }
+/* NAYI STYLING SECONDARY BUTTON KE LIYE */
+.nav-button.secondary {
+    background-color: var(--secondary-accent);
+    box-shadow: none;
+}
+.nav-button.secondary:hover {
+    background-color: var(--secondary-accent-hover);
+}
+
+/* --- Status Screen --- */
+#status-cards-container { display: flex; flex-direction: column; gap: 20px; }
+.status-card { padding: 20px; }
+.status-card h3 { margin-top: 0; text-align: center; padding-bottom: 10px; font-size: 1.25em; }
+.status-details { display: flex; align-items: center; gap: 25px; margin-top: 15px; }
+.chart-container { position: relative; width: 90px; height: 90px; flex-shrink: 0; }
+.chart-percentage { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5em; font-weight: bold; }
+.stats { flex-grow: 1; }
+.stats p { margin: 8px 0; font-size: 1em; color: var(--text-secondary); }
+.stats strong { color: var(--text-primary); font-weight: 500; }
+
+/* --- MANAGE SUBJECTS SCREEN STYLING (NAYI STYLING) --- */
+.info-text {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 25px;
+    text-align: center;
+}
+#manage-subjects-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.subject-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-dark);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.subject-item span {
+    font-weight: 500;
+}
+.delete-button {
+    background-color: var(--red);
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: none;
+}
+.delete-button:hover {
+    background-color: #c13131; /* Thoda gehra laal */
+}
+.delete-button svg {
+    width: 100%;
+    height: 100%;
+}
+
